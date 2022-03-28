@@ -25,9 +25,15 @@ const columns = [
     dataIndex: "email",
     width: "20%",
   },
+  {
+    title: "Action",
+    dataIndex: "userId",
+    render: (userId) => (<a>Delete {userId}</a>),
+    width: "20%",
+  },
 ];
 function ContactList({ history }) {
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawettwetwaa");
   const [contacts, setContacts] = useState([]);
   const [pagination, setPagination] = useState({
     current: 20,
@@ -40,6 +46,7 @@ function ContactList({ history }) {
   }
 
   useEffect(() => {
+    console.log('USEEFFECT');
     fetchContacts();
   }, []);
 
@@ -50,6 +57,10 @@ function ContactList({ history }) {
 
   function onAddContact() {
     history.push("/contacts/new");
+  }
+
+  function onDeleteContact(id) {
+    console.log('DELETE', id);
   }
   return contacts.length ? (
     <PageWithHeader
