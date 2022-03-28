@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { PageWithHeader } from "../../../components";
 import { Form, Input, Button, message } from "antd";
-import { MailOutlined, UserAddOutlined } from "@ant-design/icons";
+import { MailOutlined, UserAddOutlined, PhoneOutlined } from "@ant-design/icons";
 import { contactService } from "../../../services";
 
 function CreateContact({ history }) {
@@ -51,6 +51,18 @@ function CreateContact({ history }) {
             ]}
           >
             <Input prefix={<UserAddOutlined />} placeholder="Name" />
+          </Form.Item>
+          <Form.Item
+            name="phoneNumber"
+            rules={[
+              {
+                required: true,
+                message: "Please input your phone number!",
+                whitespace: true,
+              },
+            ]}
+          >
+            <Input prefix={<PhoneOutlined />} placeholder="Phone number" />
           </Form.Item>
           <Form.Item>
             <Button style={{ width: "100%" }} type="primary" htmlType="submit">
