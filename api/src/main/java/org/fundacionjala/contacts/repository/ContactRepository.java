@@ -11,4 +11,9 @@ public interface ContactRepository extends JpaRepository<ContactData, Long> {
     Optional<ContactData> findByEmail(String email);
 
     List<ContactData> findByName(String name);
+
+    List<ContactData> findAllByEmail(String email);
+
+    List<ContactData> findAllByPhoneNumber(String phoneNumber);
+
 }

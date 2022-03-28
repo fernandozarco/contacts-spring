@@ -9,6 +9,7 @@ import org.fundacionjala.contacts.models.Contact;
 import org.fundacionjala.contacts.repository.ContactRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,8 +24,8 @@ public class ContactController {
     }
 
     @GetMapping("/contacts")
-    public List<Contact> retrieveAllContacts(@RequestParam(required = false) String name) {
-        if (name == null || name.isEmpty()) {
+    public List<Contact> retrieveAllContacts(@RequestParam(required = false) String name, @RequestParam(required = false) String email, @RequestParam(required = false) String phoneNumber) {
+        if ((name == null || name.isEmpty()) && (email == null || email.isEmpty()) && (phoneNumber == null || phoneNumber.isEmpty())) {
             return contactRepository
                     .findAll()
                     .stream()
@@ -32,11 +33,26 @@ public class ContactController {
                     .collect(Collectors.toList());
         }
 
-        return contactRepository
-                .findByName(name)
-                .stream()
-                .map(ContactData::toModel)
-                .collect(Collectors.toList());
+        List<Contact> contacts = new ArrayList<Contact>();
+
+        if (name != null) {
+             contacts = contactRepository.findByName(name)
+                    .stream()
+                    .map(ContactData::toModel)
+                    .collect(Collectors.toList());
+        } else if (email != null) {
+            contacts = contactRepository.findAllByEmail(email)
+                    .stream()
+                    .map(ContactData::toModel)
+                    .collect(Collectors.toList());
+        } else if (phoneNumber != null) {
+            contacts = contactRepository.findAllByPhoneNumber(phoneNumber)
+                    .stream()
+                    .map(ContactData::toModel)
+                    .collect(Collectors.toList());
+        }
+
+        return contacts;
     }
 
     @GetMapping("/contacts/{id}")
