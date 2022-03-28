@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.fundacionjala.contacts.models.Contact;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -30,11 +31,14 @@ public class ContactData {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String phoneNumber;
+
     @ManyToMany
     private Set<MessageData> messages;
 
     public Contact toModel() {
-        Contact contact = new Contact(name, email);
+        Contact contact = new Contact(name, email, phoneNumber);
         contact.setId(id);
         contact.setUserId(userId);
         return contact;

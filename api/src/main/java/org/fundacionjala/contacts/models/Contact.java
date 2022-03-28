@@ -18,11 +18,14 @@ public class Contact {
     private String name;
     private String email;
 
+    private String phoneNumber;
+
     public Contact() { }
 
-    public Contact(String name, String email) {
+    public Contact(String name, String email, String phoneNumber) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -33,12 +36,13 @@ public class Contact {
         return Objects.equals(id, contact.id) &&
                Objects.equals(userId, ((Contact) that).userId) &&
                Objects.equals(name, contact.name) &&
-               Objects.equals(email, contact.email);
+               Objects.equals(email, contact.email) &&
+                Objects.equals(phoneNumber, contact.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, userId);
+        return Objects.hash(id, name, email, phoneNumber, userId);
     }
 
     @Override
@@ -47,10 +51,11 @@ public class Contact {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 
     public ContactData toEntity() {
-        return new ContactData(id, 1L, name, email, new HashSet<>());
+        return new ContactData(id, 1L, name, email, phoneNumber, new HashSet<>());
     }
 }

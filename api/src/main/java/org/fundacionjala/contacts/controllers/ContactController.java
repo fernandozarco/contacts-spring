@@ -3,6 +3,7 @@ package org.fundacionjala.contacts.controllers;
 import org.fundacionjala.contacts.db.entities.ContactData;
 import org.fundacionjala.contacts.exceptions.ContactNotFoundException;
 import org.fundacionjala.contacts.exceptions.DuplicatedContactException;
+import org.fundacionjala.contacts.exceptions.LengthPhoneNumberException;
 import org.fundacionjala.contacts.exceptions.RequiredFieldException;
 import org.fundacionjala.contacts.models.Contact;
 import org.fundacionjala.contacts.repository.ContactRepository;
@@ -70,6 +71,8 @@ public class ContactController {
         if (contact.getName() == null || contact.getName().isEmpty()) {
             throw new RequiredFieldException("name");
         }
+
+
 
         Optional<ContactData> existingContact = contactRepository.findByEmail(contact.getEmail());
 
