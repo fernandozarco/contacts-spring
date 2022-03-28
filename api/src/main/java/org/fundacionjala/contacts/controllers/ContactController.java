@@ -53,6 +53,15 @@ public class ContactController {
                 .toModel();
     }
 
+    @DeleteMapping("/contacts/{id}")
+    public String deleteContactById(@PathVariable Long id) throws ContactNotFoundException {
+        ContactData contact = contactRepository.findById(id)
+                .orElseThrow(() -> new ContactNotFoundException("Not found error code - Unable to find contact with Id: " + id));
+
+        contactRepository.delete(contact);
+        return "DELETED";
+    }
+
     private void validateContactFields(Contact contact) throws RequiredFieldException {
         if (contact.getEmail() == null || contact.getEmail().isEmpty()) {
             throw new RequiredFieldException("email");
